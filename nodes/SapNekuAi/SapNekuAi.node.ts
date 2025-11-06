@@ -145,7 +145,7 @@ export class SapNekuAi implements INodeType {
 				const body = {
 					ReportId: '',
 					ReportName: reportName,
-					ReportPayload: JSON.stringify(reportPayload ?? {}),
+					ReportPayload: reportPayload ?? {},
 					NekuAIUser: nekuAIUser,
 				};
 
