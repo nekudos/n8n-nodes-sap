@@ -1,16 +1,19 @@
 {
 	"name": "n8n-nodes-sap",
 	"version": "0.1.0",
-	"description": "n8n Community Nodes - SAP",
+	"description": "n8n Community Nodes - SAP integration through NeKu.AI OData wrapper service",
 	"license": "MIT",
-	"homepage": "",
+	"homepage": "https://github.com/nekudos/n8n-nodes-sap#readme",
 	"keywords": [
 		"n8n-community-node-package",
 		"n8n-nodes-sap",
 		"sap",
 		"connector",
 		"nekuai",
-		"nekudos"
+		"nekudos",
+		"odata",
+		"erp",
+		"integration"
 	],
 	"author": {
 		"name": "Serkan Ozcan",
@@ -19,6 +22,9 @@
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/nekudos/n8n-nodes-sap.git"
+	},
+	"bugs": {
+		"url": "https://github.com/nekudos/n8n-nodes-sap/issues"
 	},
 	"scripts": {
 		"build": "n8n-node build",
