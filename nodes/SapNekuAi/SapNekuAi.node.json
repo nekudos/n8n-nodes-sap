@@ -1,0 +1,7 @@
+{
+  "node": "SapNekuAi.node.ts",
+  "icon": "file:icons/nekuai.svg",
+  "name": "sapNekuAi",
+  "version": 1,
+  "description": "SAP Connector Neku.AI"
+}
