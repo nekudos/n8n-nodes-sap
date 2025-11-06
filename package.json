@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-sap",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "n8n Community Nodes - SAP integration through NeKu.AI OData wrapper service",
 	"license": "MIT",
 	"homepage": "https://github.com/nekudos/n8n-nodes-sap#readme",
