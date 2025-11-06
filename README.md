@@ -162,7 +162,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-[MIT](LICENSE.md)
+[Apache License 2.0 with Commons Clause](LICENSE.md)
 
 ## Author
 
