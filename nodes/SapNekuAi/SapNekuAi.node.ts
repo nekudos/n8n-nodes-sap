@@ -33,18 +33,17 @@ async function fetchCsrfAndCookie(
 	url: string,
 	auth: { user: string; pass: string },
 ): Promise<ICsrfResponse> {
-	const res = await helpers.request({
+	const res = await helpers.httpRequest({
 		method: 'GET',
-		uri: url,
+		url: url,
 		headers: {
 			'X-CSRF-Token': 'Fetch',
 			Accept: 'application/json',
 			'X-Requested-With': 'X',
 		},
-		json: true,
-		resolveWithFullResponse: true,
-		simple: false,
-		auth,
+		returnFullResponse: true,
+		ignoreHttpStatusErrors: true,
+		auth: { username: auth.user, password: auth.pass },
 	});
 
 	const token = res.headers['x-csrf-token'] as string | undefined;
@@ -170,12 +169,12 @@ export class SapNekuAi implements INodeType {
 					  (res as ISapResponse)?.value ??
 					  res) as IDataObject;
 
-				returnData.push({ json: payload as IDataObject, pairedItem: i });
+				returnData.push({ json: payload as IDataObject, pairedItem: { item: i } });
 			} catch (error) {
 				if (this.continueOnFail()) {
 					returnData.push({
 						json: { error: (error as Error).message },
-						pairedItem: i,
+						pairedItem: { item: i },
 					});
 				} else {
 					throw error;
