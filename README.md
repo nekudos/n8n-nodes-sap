@@ -1,4 +1,4 @@
-![Banner image](https://user-images.githubusercontent.com/10284570/173569848-c624317f-42b1-45a6-ab09-f0ea3c247648.png)
+[![Watch the video](https://img.youtube.com/vi/fnDfw-aiLVY/maxresdefault.jpg)](https://www.youtube.com/watch?v=fnDfw-aiLVY)
 
 # n8n-nodes-sap
 
