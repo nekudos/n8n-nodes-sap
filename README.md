@@ -65,7 +65,7 @@ To connect to your SAP system, you'll need to set up the following credentials:
    - Example: `https://s4hana.company.com`
 
 2. **SAP Client** (required): Your SAP Client number (Mandant)
-   - Example: `100`, `800`, etc.
+   - Example: `100`, `200`, etc.
 
 3. **Username** (required): Your SAP username for authentication
 
