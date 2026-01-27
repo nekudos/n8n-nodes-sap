@@ -21,7 +21,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/nekudos/n8n-nodes-sap.git"
+		"url": "git+https://github.com/nekudos/n8n-nodes-sap.git"
 	},
 	"bugs": {
 		"url": "https://github.com/nekudos/n8n-nodes-sap/issues"
