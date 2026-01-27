@@ -1,4 +1,4 @@
-[![Watch the video](https://img.youtube.com/vi/fnDfw-aiLVY/maxresdefault.jpg)](https://www.youtube.com/watch?v=fnDfw-aiLVY)
+[![Watch the video](https://i.ytimg.com/vi/fnDfw-aiLVY/hqdefault.jpg)](https://www.youtube.com/watch?v=fnDfw-aiLVY)
 
 # n8n-nodes-sap
 
