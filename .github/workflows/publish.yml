@@ -63,5 +63,17 @@ jobs:
             exit 1
           fi
 
+      - name: Prepare npm config (OIDC only)
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo "registry=https://registry.npmjs.org/" > "$RUNNER_TEMP/.npmrc"
+
       - name: Publish
+        env:
+          # Force npm to use a clean config without any legacy tokens.
+          NPM_CONFIG_USERCONFIG: ${{ runner.temp }}/.npmrc
+          # Override any repo/org-level secrets that may inject an expired token.
+          NODE_AUTH_TOKEN: ''
+          NPM_TOKEN: ''
         run: npm publish --ignore-scripts --provenance --access public
