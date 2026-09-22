@@ -4,9 +4,9 @@ import type {
 	INodeType,
 	INodeTypeDescription,
 	IDataObject,
-	JsonObject,
 } from 'n8n-workflow';
-import { NodeApiError, NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
+import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
+import { toSapApiError } from './SapError';
 
 interface ICredentials {
 	baseUrl: string;
@@ -164,24 +164,25 @@ export class SapNekuAi implements INodeType {
 
 				const payload = returnRaw
 					? res
-					: ((res as ISapResponse)?.d?.results ??
-					  (res as ISapResponse)?.d ??
-					  (res as ISapResponse)?.value ??
-					  res) as IDataObject;
+					: (((res as ISapResponse)?.d?.results ??
+							(res as ISapResponse)?.d ??
+							(res as ISapResponse)?.value ??
+							res) as IDataObject);
 
 				returnData.push({ json: payload as IDataObject, pairedItem: { item: i } });
 			} catch (error) {
+				const nodeError =
+					error instanceof NodeOperationError
+						? new NodeOperationError(this.getNode(), error, { itemIndex: i })
+						: toSapApiError(this.getNode(), error, i);
+				nodeError.context.itemIndex = i;
 				if (this.continueOnFail()) {
 					returnData.push({
-						json: { error: (error as Error).message },
+						json: { error: nodeError.message },
 						pairedItem: { item: i },
 					});
 				} else {
-					if (error instanceof NodeOperationError) {
-						throw new NodeOperationError(this.getNode(), error, { itemIndex: i });
-					}
-
-					throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
+					throw nodeError;
 				}
 			}
 		}

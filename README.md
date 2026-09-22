@@ -138,6 +138,8 @@ The node automatically extracts data from common SAP OData response structures:
 The node includes built-in error handling:
 - If **Continue on Fail** is enabled in the node settings, errors are returned as JSON objects
 - Otherwise, errors will stop the workflow execution
+- SAP OData failures display the original SAP message (including OData V2 `message.value`) instead of a generic HTTP error. The error panel includes the SAP code, additional Gateway messages, and transaction ID/timestamp when available.
+- **Continue on Fail** returns the same SAP message in the `error` field.
 
 ## Resources
 
@@ -150,7 +152,11 @@ The node includes built-in error handling:
 
 ## Version History
 
-### 0.1.8 (Current)
+### 0.1.9 (Current)
+
+- Display SAP OData business error messages and Gateway details, including failures raised by `rfc_save_log`
+
+### 0.1.8
 
 - Wrap validation and API failures with n8n's standard error types
 
