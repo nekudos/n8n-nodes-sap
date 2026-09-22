@@ -9,7 +9,7 @@ import type {
 export class SapBasicNekuAiApi implements ICredentialType {
 	name = 'sapBasicNekuAiApi';
 	displayName = 'SAP Basic Authentication NeKu.AI API';
-	documentationUrl = 'https://github.com/nekudos/n8n-nodes-sap';
+	documentationUrl = 'https://neku.ai/en/n8n-sap-connector/';
 	icon: Icon = { light: 'file:../icons/nekuai.svg', dark: 'file:../icons/nekuai.dark.svg' };
 	properties: INodeProperties[] = [
 		{

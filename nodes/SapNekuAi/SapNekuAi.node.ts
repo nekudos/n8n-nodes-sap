@@ -4,13 +4,12 @@ import type {
 	INodeType,
 	INodeTypeDescription,
 	IDataObject,
+	JsonObject,
 } from 'n8n-workflow';
-import { NodeOperationError } from 'n8n-workflow';
+import { NodeApiError, NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 
 interface ICredentials {
 	baseUrl: string;
-	username: string;
-	password: string;
 }
 
 interface ICsrfResponse {
@@ -29,22 +28,24 @@ interface ISapResponse {
 
 // Helper to fetch CSRF token and cookie
 async function fetchCsrfAndCookie(
-	helpers: IExecuteFunctions['helpers'],
+	executeFunctions: IExecuteFunctions,
 	url: string,
-	auth: { user: string; pass: string },
 ): Promise<ICsrfResponse> {
-	const res = await helpers.httpRequest({
-		method: 'GET',
-		url: url,
-		headers: {
-			'X-CSRF-Token': 'Fetch',
-			Accept: 'application/json',
-			'X-Requested-With': 'X',
+	const res = await executeFunctions.helpers.httpRequestWithAuthentication.call(
+		executeFunctions,
+		'sapBasicNekuAiApi',
+		{
+			method: 'GET',
+			url,
+			headers: {
+				'X-CSRF-Token': 'Fetch',
+				Accept: 'application/json',
+				'X-Requested-With': 'X',
+			},
+			returnFullResponse: true,
+			ignoreHttpStatusErrors: true,
 		},
-		returnFullResponse: true,
-		ignoreHttpStatusErrors: true,
-		auth: { username: auth.user, password: auth.pass },
-	});
+	);
 
 	const token = res.headers['x-csrf-token'] as string | undefined;
 	const setCookie = res.headers['set-cookie'] as string[] | undefined;
@@ -57,16 +58,17 @@ export class SapNekuAi implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'SAP Connector Neku.AI',
 		name: 'sapNekuAi',
-		icon: 'file:../../icons/nekuai.svg',
+		icon: { light: 'file:../../icons/nekuai.svg', dark: 'file:../../icons/nekuai.dark.svg' },
 		group: ['transform'],
 		version: 1,
+		subtitle: '={{$parameter["reportName"]}}',
 		description: 'POST JSON data to SAP OData endpoint /ZNEKUAI_WRAPPER_SRV/ReportSet',
 		defaults: {
 			name: 'SAP Connector Neku.AI',
 		},
 		usableAsTool: true,
-		inputs: ['main'],
-		outputs: ['main'],
+		inputs: [NodeConnectionTypes.Main],
+		outputs: [NodeConnectionTypes.Main],
 		credentials: [
 			{
 				name: 'sapBasicNekuAiApi',
@@ -115,8 +117,6 @@ export class SapNekuAi implements INodeType {
 
 		const credentials = (await this.getCredentials('sapBasicNekuAiApi')) as ICredentials;
 		const baseUrl = credentials.baseUrl.replace(/\/$/, '');
-		const username = credentials.username;
-		const password = credentials.password;
 
 		const endpoint = '/sap/opu/odata/sap/ZNEKUAI_WRAPPER_SRV/ReportSet';
 
@@ -136,10 +136,7 @@ export class SapNekuAi implements INodeType {
 
 				const url = `${baseUrl}${endpoint}`;
 
-				const { token, cookieHeader } = await fetchCsrfAndCookie(this.helpers, url, {
-					user: username,
-					pass: password,
-				});
+				const { token, cookieHeader } = await fetchCsrfAndCookie(this, url);
 
 				const body = {
 					ReportId: '',
@@ -148,19 +145,22 @@ export class SapNekuAi implements INodeType {
 					NekuAIUser: nekuAIUser,
 				};
 
-				const res = await this.helpers.httpRequest({
-					method: 'POST',
-					url: url,
-					headers: {
-						'Content-Type': 'application/json',
-						Accept: 'application/json',
-						'X-Requested-With': 'X',
-						...(token ? { 'X-CSRF-Token': token } : {}),
-						...(cookieHeader ? { Cookie: cookieHeader } : {}),
+				const res = await this.helpers.httpRequestWithAuthentication.call(
+					this,
+					'sapBasicNekuAiApi',
+					{
+						method: 'POST',
+						url,
+						headers: {
+							'Content-Type': 'application/json',
+							Accept: 'application/json',
+							'X-Requested-With': 'X',
+							...(token ? { 'X-CSRF-Token': token } : {}),
+							...(cookieHeader ? { Cookie: cookieHeader } : {}),
+						},
+						body,
 					},
-					body,
-					auth: { username: username, password: password },
-				});
+				);
 
 				const payload = returnRaw
 					? res
@@ -177,7 +177,9 @@ export class SapNekuAi implements INodeType {
 						pairedItem: { item: i },
 					});
 				} else {
-					throw error;
+					if (error instanceof NodeOperationError) throw error;
+
+					throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
 				}
 			}
 		}

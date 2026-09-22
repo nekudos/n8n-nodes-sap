@@ -150,7 +150,13 @@ The node includes built-in error handling:
 
 ## Version History
 
-### 0.1.6 (Current)
+### 0.1.7 (Current)
+
+- Align the node with n8n's verified community node requirements
+- Apply SAP credentials consistently to CSRF and report requests
+- Add themed icons, a dynamic subtitle, and standard n8n error handling
+
+### 0.1.6
 
 - Link package metadata to the NeKu AI n8n SAP Connector page
 - Improve package description and discovery keywords
