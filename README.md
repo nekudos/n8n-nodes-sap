@@ -150,7 +150,13 @@ The node includes built-in error handling:
 
 ## Version History
 
-### 0.1.0 (Current)
+### 0.1.6 (Current)
+
+- Link package metadata to the NeKu AI n8n SAP Connector page
+- Improve package description and discovery keywords
+- Keep the connector behavior unchanged
+
+### 0.1.0
 
 - Initial release
 - Basic SAP OData POST integration via NeKu.AI wrapper
