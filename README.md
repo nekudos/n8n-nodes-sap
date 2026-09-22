@@ -141,6 +141,8 @@ The node includes built-in error handling:
 
 ## Resources
 
+- [NeKu AI n8n SAP Connector](https://neku.ai/en/n8n-sap-connector/)
+- [SAP integration with n8n](https://neku.ai/en/n8n-sap-integration/)
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
 - [n8n documentation](https://docs.n8n.io/)
 - [SAP OData documentation](https://help.sap.com/docs/SAP_NETWEAVER_750/68bf513362174d54b58cddec28794093/7b3b16ea42bd46e293036f3b5deaa6d5.html)
@@ -173,4 +175,3 @@ GitHub: [@serkanozcan](https://github.com/serkanozcan)
 ## Support
 
 For issues, questions, or contributions, please visit the [GitHub repository](https://github.com/nekudos/n8n-nodes-sap).
-
