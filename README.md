@@ -150,7 +150,11 @@ The node includes built-in error handling:
 
 ## Version History
 
-### 0.1.7 (Current)
+### 0.1.8 (Current)
+
+- Wrap validation and API failures with n8n's standard error types
+
+### 0.1.7
 
 - Align the node with n8n's verified community node requirements
 - Apply SAP credentials consistently to CSRF and report requests

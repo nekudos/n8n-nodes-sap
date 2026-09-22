@@ -177,7 +177,9 @@ export class SapNekuAi implements INodeType {
 						pairedItem: { item: i },
 					});
 				} else {
-					if (error instanceof NodeOperationError) throw error;
+					if (error instanceof NodeOperationError) {
+						throw new NodeOperationError(this.getNode(), error, { itemIndex: i });
+					}
 
 					throw new NodeApiError(this.getNode(), error as JsonObject, { itemIndex: i });
 				}

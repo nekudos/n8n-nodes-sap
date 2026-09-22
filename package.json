@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-sap",
-	"version": "0.1.7",
+	"version": "0.1.8",
 	"description": "n8n community node for connecting SAP systems through the NeKu AI OData connector.",
 	"license": "MIT",
 	"homepage": "https://neku.ai/en/n8n-sap-connector/",
