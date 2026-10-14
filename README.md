@@ -141,10 +141,21 @@ The node includes built-in error handling:
 - SAP OData failures display the original SAP message (including OData V2 `message.value`) instead of a generic HTTP error. The error panel includes the SAP code, additional Gateway messages, and transaction ID/timestamp when available.
 - **Continue on Fail** returns the same SAP message in the `error` field.
 
+## Pilot evaluation
+
+Start in a test environment with one SAP-owner-approved report and a bounded payload. Confirm the SAP-side module, user permissions, expected fields, failure behaviour and the effect of repeat execution. A successful credential test proves connectivity, not authorization for every report.
+
+The community node is MIT-licensed; the SAP-side NeKu AI connector module is commercially licensed. Evaluate its installation and support scope separately from the n8n runtime.
+
+This package uses the NeKu AI wrapper contract. For a direct read from an existing generic OData service, evaluate n8n HTTP Request or the relevant OData package separately. Generic service discovery and other packages' features are not implied by this node.
+
 ## Resources
 
 - [NeKu AI n8n SAP Connector](https://neku.ai/en/n8n-sap-connector/)
 - [SAP integration with n8n](https://neku.ai/en/n8n-sap-integration/)
+- [SAP OData with n8n: HTTP Request or wrapper selection](https://neku.ai/en/n8n-sap-odata/)
+- [Connector installation and pilot checklist](https://neku.ai/en/resources/n8n-sap-connector-checklist/)
+- [n8n, SAP Integration Suite and MCP architecture guide](https://nekudos.com/en/sap-n8n-integration-suite-mcp/)
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
 - [n8n documentation](https://docs.n8n.io/)
 - [SAP OData documentation](https://help.sap.com/docs/SAP_NETWEAVER_750/68bf513362174d54b58cddec28794093/7b3b16ea42bd46e293036f3b5deaa6d5.html)
